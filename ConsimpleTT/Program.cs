@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -52,7 +53,7 @@ namespace ConsimpleTT
 
         private static void Draw(RespModel data)
         {
-            for (int i = 0; i < Math.Max(data.Categories.Length, data.Products.Length); i++)
+            for (int i = 0; i < data.Products.Length; i++)
             {
                 if (i == 0)
                 {
@@ -60,9 +61,10 @@ namespace ConsimpleTT
                     Console.WriteLine($"\t\t|{"Product name",-20} |{"Category name",-20}|");
                     Console.WriteLine($"\t\t--------------------------------------------");
                 }
-                Console.WriteLine($"\t\t|{$"{(i < data.Products.Length ? data.Products?[i]?.Name : "")}",-20} |{$"{(i < data.Categories.Length ? data.Categories?[i]?.Name : "")}",-20}|");
+                Console.WriteLine($"\t\t|{$"{data.Products?[i]?.Name }",-20} |{$"{data.Categories.FirstOrDefault(item => item.Id == data.Products?[i]?.CategoryId)?.Name}",-20}|");
             }
             Console.WriteLine($"\t\t--------------------------------------------");
+            Console.WriteLine("\n\n");
         }
     }
 }
